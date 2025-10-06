@@ -14,6 +14,11 @@ registerForm.addEventListener('submit', function (event) {
     var password = registerForm.password.value
 
     logic.registerUser(fullName, dateOfBirth, email, password)
+
+    registerForm.reset()
+
+    registerView.style.display = 'none'
+    loginView.style.display = 'block'
 })
 
 var loginLink = registerView.querySelector('#loginLink')
@@ -38,6 +43,11 @@ loginForm.addEventListener('submit', function (event) {
     var password = loginForm.password.value
 
     logic.loginUser(email, password)
+
+    loginForm.reset()
+
+    loginView.style.display = 'none'
+    homeView.style.display = 'block'
 })
 
 var registerLink = loginView.querySelector('#registerLink')
