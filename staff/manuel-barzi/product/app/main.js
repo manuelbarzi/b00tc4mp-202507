@@ -63,3 +63,19 @@ registerLink.addEventListener('click', function (event) {
 
 var homeView = document.querySelector('#homeView')
 homeView.style.display = 'none'
+
+var changeEmailForm = homeView.querySelector('#changeEmailForm')
+
+changeEmailForm.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    var email = changeEmailForm.email.value
+    var newEmail = changeEmailForm.newEmail.value
+    var newEmailRepeat = changeEmailForm.newEmailRepeat.value
+
+    logic.changeUserEmail(email, newEmail, newEmailRepeat)
+
+    changeEmailForm.reset()
+
+    alert('e-mail changed')
+})
