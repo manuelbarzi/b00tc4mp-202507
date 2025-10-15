@@ -1,3 +1,5 @@
+var loggedInUserEmail = null
+
 // register
 
 var registerView = document.querySelector('#registerView')
@@ -46,6 +48,8 @@ loginForm.addEventListener('submit', function (event) {
 
     loginForm.reset()
 
+    loggedInUserEmail = email
+
     loginView.style.display = 'none'
     homeView.style.display = 'block'
 })
@@ -78,4 +82,20 @@ changeEmailForm.addEventListener('submit', function (event) {
     changeEmailForm.reset()
 
     alert('e-mail changed')
+})
+
+var changePasswordForm = homeView.querySelector('#changePasswordForm')
+
+changePasswordForm.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    var password = changePasswordForm.password.value
+    var newPassword = changePasswordForm.newPassword.value
+    var newPasswordRepeat = changePasswordForm.newPasswordRepeat.value
+
+    logic.changeUserPassword(loggedInUserEmail, password, newPassword, newPasswordRepeat)
+
+    changePasswordForm.reset()
+
+    alert('password changed')
 })
