@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
+body {
+    font-family: 'Poiret One';
+    background-color: gray;
+    color: white;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+button {
+    background-color: dimgray;
+    border: none;
+    color: white;
+    padding: 5px;
+}
+
+a {
+    color: white;
+}

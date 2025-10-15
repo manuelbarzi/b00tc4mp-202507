@@ -1,4 +1,4 @@
-var loggedInUserEmail = null
+var loggedInEmail = null
 
 // register
 
@@ -48,7 +48,7 @@ loginForm.addEventListener('submit', function (event) {
 
     loginForm.reset()
 
-    loggedInUserEmail = email
+    loggedInEmail = email
 
     loginView.style.display = 'none'
     homeView.style.display = 'block'
@@ -93,9 +93,20 @@ changePasswordForm.addEventListener('submit', function (event) {
     var newPassword = changePasswordForm.newPassword.value
     var newPasswordRepeat = changePasswordForm.newPasswordRepeat.value
 
-    logic.changeUserPassword(loggedInUserEmail, password, newPassword, newPasswordRepeat)
+    logic.changeUserPassword(loggedInEmail, password, newPassword, newPasswordRepeat)
 
     changePasswordForm.reset()
 
     alert('password changed')
+})
+
+var logoutButton = homeView.querySelector('#logoutButton')
+
+logoutButton.addEventListener('click', function (event) {
+    event.preventDefault()
+
+    loggedInEmail = null
+
+    homeView.style.display = 'none'
+    loginView.style.display = 'block'
 })
