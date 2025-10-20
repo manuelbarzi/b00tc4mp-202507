@@ -115,3 +115,23 @@ logoutButton.addEventListener('click', function (event) {
     homeView.style.display = 'none'
     loginView.style.display = 'block'
 })
+
+var profilePanel = homeView.querySelector('#profilePanel')
+
+profilePanel.style.display = 'none'
+
+var profileLink = homeView.querySelector('#profileLink')
+
+profileLink.addEventListener('click', function (event) {
+    event.preventDefault()
+
+    profilePanel.style.display = 'block'
+})
+
+var homeLink = homeView.querySelector('#homeLink')
+
+homeLink.addEventListener('click', function (event) {
+    event.preventDefault()
+
+    profilePanel.style.display = 'none'
+})

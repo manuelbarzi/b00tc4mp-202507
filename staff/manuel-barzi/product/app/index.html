@@ -52,44 +52,50 @@
     </div>
 
     <div id="homeView">
-        <h2>Home</h2>
+        <div id="navigationPanel">
+            <h2><a id="homeLink" href="http://">Home</a></h2>
 
-        <p>Hello, <span id="fullNameSpan">[fullName]</span>!</p>
+            <p>Hello, <span id="fullNameSpan">[fullName]</span>!</p>
 
-        <button id="logoutButton">Logout</button>
+            <a id="profileLink" href="http://">Profile</a>
 
-        <div>
-            <h3>Change e-mail</h3>
-
-            <form id="changeEmailForm">
-                <label for="email">E-mail</label>
-                <input type="email" id="email">
-
-                <label for="newEmail">New e-mail</label>
-                <input type="email" id="newEmail">
-
-                <label for="newEmailRepeat">New e-mail repeat</label>
-                <input type="email" id="newEmailRepeat">
-
-                <button type="submit">Change e-mail</button>
-            </form>
+            <button id="logoutButton">Logout</button>
         </div>
 
-        <div>
-            <h3>Change password</h3>
+        <div id="profilePanel">
+            <div>
+                <h3>Change e-mail</h3>
 
-            <form id="changePasswordForm">
-                <label for="password">Password</label>
-                <input type="password" id="password">
+                <form id="changeEmailForm">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email">
 
-                <label for="newPassword">New password</label>
-                <input type="password" id="newPassword">
+                    <label for="newEmail">New e-mail</label>
+                    <input type="email" id="newEmail">
 
-                <label for="newPasswordRepeat">New password repeat</label>
-                <input type="password" id="newPasswordRepeat">
+                    <label for="newEmailRepeat">New e-mail repeat</label>
+                    <input type="email" id="newEmailRepeat">
 
-                <button type="submit">Change password</button>
-            </form>
+                    <button type="submit">Change e-mail</button>
+                </form>
+            </div>
+
+            <div>
+                <h3>Change password</h3>
+
+                <form id="changePasswordForm">
+                    <label for="password">Password</label>
+                    <input type="password" id="password">
+
+                    <label for="newPassword">New password</label>
+                    <input type="password" id="newPassword">
+
+                    <label for="newPasswordRepeat">New password repeat</label>
+                    <input type="password" id="newPasswordRepeat">
+
+                    <button type="submit">Change password</button>
+                </form>
+            </div>
         </div>
     </div>
 
