@@ -50,6 +50,11 @@ loginForm.addEventListener('submit', function (event) {
 
     loggedInEmail = email
 
+    var userInfo = logic.getUserInfo(loggedInEmail)
+
+    var fullNameSpan = homeView.querySelector('#fullNameSpan')
+    fullNameSpan.textContent = userInfo.fullName
+
     loginView.style.display = 'none'
     homeView.style.display = 'block'
 })
