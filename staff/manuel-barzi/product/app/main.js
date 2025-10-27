@@ -55,6 +55,24 @@ loginForm.addEventListener('submit', function (event) {
     var fullNameSpan = homeView.querySelector('#fullNameSpan')
     fullNameSpan.textContent = userInfo.fullName
 
+    var posts = logic.getPosts(loggedInEmail)
+
+    postList.innerHTML = ''
+
+    for (var i = 0; i < posts.length; i++) {
+        var post = posts[i]
+
+        var postElement = document.createElement('div')
+
+        postElement.innerHTML = `
+            <h3>${post.author}</h3>
+            <img src="${post.image}" width="200">
+            <p>${post.text}</p>
+            <small>${post.date}</small>
+        `
+        postList.appendChild(postElement)
+    }
+
     loginView.style.display = 'none'
     homeView.style.display = 'block'
 })
@@ -135,3 +153,5 @@ homeLink.addEventListener('click', function (event) {
 
     profilePanel.style.display = 'none'
 })
+
+var postList = homeView.querySelector('#postList')

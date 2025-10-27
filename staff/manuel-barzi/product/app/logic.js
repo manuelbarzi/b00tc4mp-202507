@@ -125,3 +125,31 @@ logic.changeUserPassword = function (email, password, newPassword, newPassowrdRe
 
     throw new Error('user not found')
 }
+
+/**
+ * Returns all posts in the system.
+ * 
+ * @param {string} email The e-mail of the user.
+ * @returns An array of posts.
+ */
+logic.getPosts = function (email) {
+    // check user exists
+
+    var userExists = false
+
+    for (var i = 0; i < data.users.length; i++) {
+        var user = data.users[i]
+
+        if (user.email === email) {
+            userExists = true
+
+            break
+        }
+    }
+
+    if (!userExists) throw new Error('user not found')
+
+    // return all posts
+
+    return data.posts
+}
