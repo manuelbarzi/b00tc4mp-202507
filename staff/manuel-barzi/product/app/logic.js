@@ -133,23 +133,42 @@ logic.changeUserPassword = function (email, password, newPassword, newPassowrdRe
  * @returns An array of posts.
  */
 logic.getPosts = function (email) {
-    // check user exists
-
-    var userExists = false
-
     for (var i = 0; i < data.users.length; i++) {
         var user = data.users[i]
 
         if (user.email === email) {
-            userExists = true
-
-            break
+            return data.posts
         }
     }
 
-    if (!userExists) throw new Error('user not found')
+    throw new Error('user not found')
+}
 
-    // return all posts
 
-    return data.posts
+/** 
+ * Adds a post to the system.
+ * 
+ * @param {string} email The e-mail of the user.
+ * @param {string} image The image URL of the post.
+ * @param {string} text The text content of the post.
+ */
+logic.addPost = function (email, image, text) {
+    for (var i = 0; i < data.users.length; i++) {
+        var user = data.users[i]
+
+        if (user.email === email) {
+            var post = {
+                author: email,
+                image: image,
+                text: text,
+                date: new Date().toISOString()
+            }
+
+            data.posts.push(post)
+
+            return
+        }
+    }
+
+    throw new Error('user not found')
 }

@@ -143,6 +143,8 @@ var profileLink = homeView.querySelector('#profileLink')
 profileLink.addEventListener('click', function (event) {
     event.preventDefault()
 
+    postList.style.display = 'none'
+    addPostPanel.style.display = 'none'
     profilePanel.style.display = 'block'
 })
 
@@ -152,6 +154,56 @@ homeLink.addEventListener('click', function (event) {
     event.preventDefault()
 
     profilePanel.style.display = 'none'
+    addPostPanel.style.display = 'none'
+    postList.style.display = 'block'
 })
 
 var postList = homeView.querySelector('#postList')
+
+var addPostButton = homeView.querySelector('#addPostButton')
+
+addPostButton.addEventListener('click', function (event) {
+    event.preventDefault()
+
+    postList.style.display = 'none'
+    profilePanel.style.display = 'none'
+    addPostPanel.style.display = 'block'
+})
+
+var addPostPanel = homeView.querySelector('#addPostPanel')
+
+addPostPanel.style.display = 'none'
+
+var addPostForm = addPostPanel.querySelector('#addPostForm')
+
+addPostForm.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    var image = addPostForm.image.value
+    var text = addPostForm.text.value
+
+    logic.addPost(loggedInEmail, image, text)
+
+    addPostForm.reset()
+
+    var posts = logic.getPosts(loggedInEmail)
+
+    postList.innerHTML = ''
+
+    for (var i = 0; i < posts.length; i++) {
+        var post = posts[i]
+
+        var postElement = document.createElement('div')
+
+        postElement.innerHTML = `
+            <h3>${post.author}</h3>
+            <img src="${post.image}" width="200">
+            <p>${post.text}</p>
+            <small>${post.date}</small>
+        `
+        postList.appendChild(postElement)
+    }
+
+    addPostPanel.style.display = 'none'
+    postList.style.display = 'block'
+})
