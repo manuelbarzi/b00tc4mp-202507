@@ -137,7 +137,28 @@ logic.getPosts = function (email) {
         var user = data.users[i]
 
         if (user.email === email) {
-            return data.posts
+            var posts2 = []
+
+            for (var j = 0; j < data.posts.length; j++) {
+                var post = data.posts[j]
+
+                var post2 = {
+                    author: post.author,
+                    image: post.image,
+                    text: post.text,
+                    date: post.date
+                }
+
+                if (post.author === email) {
+                    post2.own = true
+                } else {
+                    post2.own = false
+                }
+
+                posts2.push(post2)
+            }
+
+            return posts2
         }
     }
 

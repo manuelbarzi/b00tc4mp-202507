@@ -69,6 +69,7 @@ loginForm.addEventListener('submit', function (event) {
             <img src="${post.image}" width="200">
             <p>${post.text}</p>
             <small>${post.date}</small>
+            ${post.own === true? '<button id="deletePost" type="button">🗑️</button>' : ''}
         `
         postList.appendChild(postElement)
     }
@@ -200,6 +201,7 @@ addPostForm.addEventListener('submit', function (event) {
             <img src="${post.image}" width="200">
             <p>${post.text}</p>
             <small>${post.date}</small>
+            ${post.own === true? '<button id="deletePost" type="button">🗑️</button>' : ''}
         `
         postList.appendChild(postElement)
     }
