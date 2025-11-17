@@ -1,4 +1,4 @@
-var logic = {}
+let logic = {}
 
 /**
  * Registers a user in the system.
@@ -9,13 +9,13 @@ var logic = {}
  * @param {string} password The password of the user.
  */
 logic.registerUser = function (fullName, dateOfBirth, email, password) {
-    for (var i = 0; i < data.users.length; i++) {
-        var user = data.users[i]
+    for (let i = 0; i < data.users.length; i++) {
+        let user = data.users[i]
 
         if (user.email === email) throw new Error('user already exits')
     }
 
-    var user = {
+    let user = {
         fullName: fullName,
         dateOfBirth: dateOfBirth,
         email: email,
@@ -32,8 +32,8 @@ logic.registerUser = function (fullName, dateOfBirth, email, password) {
  * @param {string} password The password of the user. 
  */
 logic.loginUser = function (email, password) {
-    for (var i = 0; i < data.users.length; i++) {
-        var user = data.users[i]
+    for (let i = 0; i < data.users.length; i++) {
+        let user = data.users[i]
 
         if (user.email === email) {
             if (user.password === password) {
@@ -55,8 +55,8 @@ logic.loginUser = function (email, password) {
  * @returns The public information of the user (fullName, dateOfBirth, email). 
  */
 logic.getUserInfo = function (email) {
-    for (var i = 0; i < data.users.length; i++) {
-        var user = data.users[i]
+    for (let i = 0; i < data.users.length; i++) {
+        let user = data.users[i]
 
         if (user.email === email) {
             return {
@@ -78,8 +78,8 @@ logic.getUserInfo = function (email) {
  * @param {string} newEmailRepeat The repetition of the new e-mail of the user.
  */
 logic.changeUserEmail = function (email, newEmail, newEmailRepeat) {
-    for (var i = 0; i < data.users.length; i++) {
-        var user = data.users[i];
+    for (let i = 0; i < data.users.length; i++) {
+        let user = data.users[i];
 
         if (user.email === email) {
             if (newEmail === newEmailRepeat) {
@@ -104,8 +104,8 @@ logic.changeUserEmail = function (email, newEmail, newEmailRepeat) {
  * @param {string} newPassowrdRepeat The repetition of the new password of the user. 
  */
 logic.changeUserPassword = function (email, password, newPassword, newPassowrdRepeat) {
-    for (var i = 0; i < data.users.length; i++) {
-        var user = data.users[i]
+    for (let i = 0; i < data.users.length; i++) {
+        let user = data.users[i]
 
         if (user.email === email) {
             if (user.password === password) {
@@ -133,16 +133,17 @@ logic.changeUserPassword = function (email, password, newPassword, newPassowrdRe
  * @returns An array of posts.
  */
 logic.getPosts = function (email) {
-    for (var i = 0; i < data.users.length; i++) {
-        var user = data.users[i]
+    for (let i = 0; i < data.users.length; i++) {
+        let user = data.users[i]
 
         if (user.email === email) {
-            var posts2 = []
+            let posts2 = []
 
-            for (var j = 0; j < data.posts.length; j++) {
-                var post = data.posts[j]
+            for (let j = 0; j < data.posts.length; j++) {
+                let post = data.posts[j]
 
-                var post2 = {
+                let post2 = {
+                    id: post.id,
                     author: post.author,
                     image: post.image,
                     text: post.text,
@@ -174,11 +175,12 @@ logic.getPosts = function (email) {
  * @param {string} text The text content of the post.
  */
 logic.addPost = function (email, image, text) {
-    for (var i = 0; i < data.users.length; i++) {
-        var user = data.users[i]
+    for (let i = 0; i < data.users.length; i++) {
+        let user = data.users[i]
 
         if (user.email === email) {
-            var post = {
+            let post = {
+                id: 'post-' + data.postsCounter,
                 author: email,
                 image: image,
                 text: text,
@@ -186,8 +188,41 @@ logic.addPost = function (email, image, text) {
             }
 
             data.posts.push(post)
+            data.postsCounter++
 
             return
+        }
+    }
+
+    throw new Error('user not found')
+}
+
+/** 
+ * Deletes a post from the system.
+ * 
+ * @param {string} email The e-mail of the user.
+ * @param {string} postId The identifier of the post.
+ */
+logic.deletePost = function (email, postId) {
+    for (let i = 0; i < data.users.length; i++) {
+        let user = data.users[i]
+
+        if (user.email === email) {
+            for (let j = 0; j < data.posts.length; j++) {
+                let post = data.posts[j]
+
+                if (post.id === postId) {
+                    if (post.author === email) {
+                        data.posts.splice(j, 1)
+
+                        return
+                    }
+
+                    throw new Error('user not author of post')
+                }
+            }
+
+            throw new Error('post not found')
         }
     }
 

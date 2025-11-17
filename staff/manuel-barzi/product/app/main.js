@@ -1,19 +1,19 @@
-var loggedInEmail = null
+let loggedInEmail = null
 
 // register
 
-var registerView = document.querySelector('#registerView')
+let registerView = document.querySelector('#registerView')
 registerView.style.display = 'none'
 
-var registerForm = registerView.querySelector('#registerForm')
+let registerForm = registerView.querySelector('#registerForm')
 
 registerForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
-    var fullName = registerForm.fullName.value
-    var dateOfBirth = registerForm.dateOfBirth.value
-    var email = registerForm.email.value
-    var password = registerForm.password.value
+    let fullName = registerForm.fullName.value
+    let dateOfBirth = registerForm.dateOfBirth.value
+    let email = registerForm.email.value
+    let password = registerForm.password.value
 
     logic.registerUser(fullName, dateOfBirth, email, password)
 
@@ -23,7 +23,7 @@ registerForm.addEventListener('submit', function (event) {
     loginView.style.display = 'block'
 })
 
-var loginLink = registerView.querySelector('#loginLink')
+let loginLink = registerView.querySelector('#loginLink')
 
 loginLink.addEventListener('click', function (event) {
     event.preventDefault()
@@ -34,15 +34,15 @@ loginLink.addEventListener('click', function (event) {
 
 // login
 
-var loginView = document.querySelector('#loginView')
+let loginView = document.querySelector('#loginView')
 
-var loginForm = loginView.querySelector('#loginForm')
+let loginForm = loginView.querySelector('#loginForm')
 
 loginForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
-    var email = loginForm.email.value
-    var password = loginForm.password.value
+    let email = loginForm.email.value
+    let password = loginForm.password.value
 
     logic.loginUser(email, password)
 
@@ -50,27 +50,40 @@ loginForm.addEventListener('submit', function (event) {
 
     loggedInEmail = email
 
-    var userInfo = logic.getUserInfo(loggedInEmail)
+    let userInfo = logic.getUserInfo(loggedInEmail)
 
-    var fullNameSpan = homeView.querySelector('#fullNameSpan')
+    let fullNameSpan = homeView.querySelector('#fullNameSpan')
     fullNameSpan.textContent = userInfo.fullName
 
-    var posts = logic.getPosts(loggedInEmail)
+    let posts = logic.getPosts(loggedInEmail)
 
     postList.innerHTML = ''
 
-    for (var i = 0; i < posts.length; i++) {
-        var post = posts[i]
+    for (let i = 0; i < posts.length; i++) {
+        let post = posts[i]
 
-        var postElement = document.createElement('div')
+        let postElement = document.createElement('div')
 
         postElement.innerHTML = `
             <h3>${post.author}</h3>
             <img src="${post.image}" width="200">
             <p>${post.text}</p>
             <small>${post.date}</small>
-            ${post.own === true? '<button id="deletePost" type="button">🗑️</button>' : ''}
+            ${post.own === true? '<button id="deletePostButton" type="button">🗑️</button>' : ''}
         `
+
+        if (post.own === true) {
+            let deletePostButton = postElement.querySelector('#deletePostButton')
+    
+            deletePostButton.addEventListener('click', function (event) {
+                event.preventDefault()
+    
+                logic.deletePost(loggedInEmail, post.id)
+    
+                postList.removeChild(postElement)
+            })
+        }
+
         postList.appendChild(postElement)
     }
 
@@ -78,7 +91,7 @@ loginForm.addEventListener('submit', function (event) {
     homeView.style.display = 'block'
 })
 
-var registerLink = loginView.querySelector('#registerLink')
+let registerLink = loginView.querySelector('#registerLink')
 
 registerLink.addEventListener('click', function (event) {
     event.preventDefault()
@@ -89,17 +102,17 @@ registerLink.addEventListener('click', function (event) {
 
 // home
 
-var homeView = document.querySelector('#homeView')
+let homeView = document.querySelector('#homeView')
 homeView.style.display = 'none'
 
-var changeEmailForm = homeView.querySelector('#changeEmailForm')
+let changeEmailForm = homeView.querySelector('#changeEmailForm')
 
 changeEmailForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
-    var email = changeEmailForm.email.value
-    var newEmail = changeEmailForm.newEmail.value
-    var newEmailRepeat = changeEmailForm.newEmailRepeat.value
+    let email = changeEmailForm.email.value
+    let newEmail = changeEmailForm.newEmail.value
+    let newEmailRepeat = changeEmailForm.newEmailRepeat.value
 
     logic.changeUserEmail(email, newEmail, newEmailRepeat)
 
@@ -108,14 +121,14 @@ changeEmailForm.addEventListener('submit', function (event) {
     alert('e-mail changed')
 })
 
-var changePasswordForm = homeView.querySelector('#changePasswordForm')
+let changePasswordForm = homeView.querySelector('#changePasswordForm')
 
 changePasswordForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
-    var password = changePasswordForm.password.value
-    var newPassword = changePasswordForm.newPassword.value
-    var newPasswordRepeat = changePasswordForm.newPasswordRepeat.value
+    let password = changePasswordForm.password.value
+    let newPassword = changePasswordForm.newPassword.value
+    let newPasswordRepeat = changePasswordForm.newPasswordRepeat.value
 
     logic.changeUserPassword(loggedInEmail, password, newPassword, newPasswordRepeat)
 
@@ -124,7 +137,7 @@ changePasswordForm.addEventListener('submit', function (event) {
     alert('password changed')
 })
 
-var logoutButton = homeView.querySelector('#logoutButton')
+let logoutButton = homeView.querySelector('#logoutButton')
 
 logoutButton.addEventListener('click', function (event) {
     event.preventDefault()
@@ -135,11 +148,11 @@ logoutButton.addEventListener('click', function (event) {
     loginView.style.display = 'block'
 })
 
-var profilePanel = homeView.querySelector('#profilePanel')
+let profilePanel = homeView.querySelector('#profilePanel')
 
 profilePanel.style.display = 'none'
 
-var profileLink = homeView.querySelector('#profileLink')
+let profileLink = homeView.querySelector('#profileLink')
 
 profileLink.addEventListener('click', function (event) {
     event.preventDefault()
@@ -149,7 +162,7 @@ profileLink.addEventListener('click', function (event) {
     profilePanel.style.display = 'block'
 })
 
-var homeLink = homeView.querySelector('#homeLink')
+let homeLink = homeView.querySelector('#homeLink')
 
 homeLink.addEventListener('click', function (event) {
     event.preventDefault()
@@ -159,9 +172,9 @@ homeLink.addEventListener('click', function (event) {
     postList.style.display = 'block'
 })
 
-var postList = homeView.querySelector('#postList')
+let postList = homeView.querySelector('#postList')
 
-var addPostButton = homeView.querySelector('#addPostButton')
+let addPostButton = homeView.querySelector('#addPostButton')
 
 addPostButton.addEventListener('click', function (event) {
     event.preventDefault()
@@ -171,38 +184,51 @@ addPostButton.addEventListener('click', function (event) {
     addPostPanel.style.display = 'block'
 })
 
-var addPostPanel = homeView.querySelector('#addPostPanel')
+let addPostPanel = homeView.querySelector('#addPostPanel')
 
 addPostPanel.style.display = 'none'
 
-var addPostForm = addPostPanel.querySelector('#addPostForm')
+let addPostForm = addPostPanel.querySelector('#addPostForm')
 
 addPostForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
-    var image = addPostForm.image.value
-    var text = addPostForm.text.value
+    let image = addPostForm.image.value
+    let text = addPostForm.text.value
 
     logic.addPost(loggedInEmail, image, text)
 
     addPostForm.reset()
 
-    var posts = logic.getPosts(loggedInEmail)
+    let posts = logic.getPosts(loggedInEmail)
 
     postList.innerHTML = ''
 
-    for (var i = 0; i < posts.length; i++) {
-        var post = posts[i]
+    for (let i = 0; i < posts.length; i++) {
+        let post = posts[i]
 
-        var postElement = document.createElement('div')
+        let postElement = document.createElement('div')
 
         postElement.innerHTML = `
             <h3>${post.author}</h3>
             <img src="${post.image}" width="200">
             <p>${post.text}</p>
             <small>${post.date}</small>
-            ${post.own === true? '<button id="deletePost" type="button">🗑️</button>' : ''}
+            ${post.own === true? '<button id="deletePostButton" type="button">🗑️</button>' : ''}
         `
+
+        if (post.own === true) {
+            let deletePostButton = postElement.querySelector('#deletePostButton')
+    
+            deletePostButton.addEventListener('click', function (event) {
+                event.preventDefault()
+    
+                logic.deletePost(loggedInEmail, post.id)
+    
+                postList.removeChild(postElement)
+            })
+        }
+
         postList.appendChild(postElement)
     }
 
