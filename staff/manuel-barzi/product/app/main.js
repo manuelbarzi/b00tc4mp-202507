@@ -41,54 +41,58 @@ let loginForm = loginView.querySelector('#loginForm')
 loginForm.addEventListener('submit', function (event) {
     event.preventDefault()
 
-    let email = loginForm.email.value
-    let password = loginForm.password.value
+    try {
+        let email = loginForm.email.value
+        let password = loginForm.password.value
 
-    logic.loginUser(email, password)
+        logic.loginUser(email, password)
 
-    loginForm.reset()
+        loginForm.reset()
 
-    loggedInEmail = email
+        loggedInEmail = email
 
-    let userInfo = logic.getUserInfo(loggedInEmail)
+        let userInfo = logic.getUserInfo(loggedInEmail)
 
-    let fullNameSpan = homeView.querySelector('#fullNameSpan')
-    fullNameSpan.textContent = userInfo.fullName
+        let fullNameSpan = homeView.querySelector('#fullNameSpan')
+        fullNameSpan.textContent = userInfo.fullName
 
-    let posts = logic.getPosts(loggedInEmail)
+        let posts = logic.getPosts(loggedInEmail)
 
-    postList.innerHTML = ''
+        postList.innerHTML = ''
 
-    for (let i = 0; i < posts.length; i++) {
-        let post = posts[i]
+        for (let i = 0; i < posts.length; i++) {
+            let post = posts[i]
 
-        let postElement = document.createElement('div')
+            let postElement = document.createElement('div')
 
-        postElement.innerHTML = `
+            postElement.innerHTML = `
             <h3>${post.author}</h3>
             <img src="${post.image}" width="200">
             <p>${post.text}</p>
             <small>${post.date}</small>
-            ${post.own === true? '<button id="deletePostButton" type="button">🗑️</button>' : ''}
+            ${post.own === true ? '<button id="deletePostButton" type="button">🗑️</button>' : ''}
         `
 
-        if (post.own === true) {
-            let deletePostButton = postElement.querySelector('#deletePostButton')
-    
-            deletePostButton.addEventListener('click', function (event) {
-                event.preventDefault()
-    
-                logic.deletePost(loggedInEmail, post.id)
-    
-                postList.removeChild(postElement)
-            })
+            if (post.own === true) {
+                let deletePostButton = postElement.querySelector('#deletePostButton')
+
+                deletePostButton.addEventListener('click', function (event) {
+                    event.preventDefault()
+
+                    logic.deletePost(loggedInEmail, post.id)
+
+                    postList.removeChild(postElement)
+                })
+            }
+
+            postList.appendChild(postElement)
         }
 
-        postList.appendChild(postElement)
+        loginView.style.display = 'none'
+        homeView.style.display = 'block'
+    } catch (error) {
+        loginFeedback.textContent = error.message
     }
-
-    loginView.style.display = 'none'
-    homeView.style.display = 'block'
 })
 
 let registerLink = loginView.querySelector('#registerLink')
@@ -99,6 +103,8 @@ registerLink.addEventListener('click', function (event) {
     loginView.style.display = 'none'
     registerView.style.display = 'block'
 })
+
+let loginFeedback = loginView.querySelector('#loginFeedback')
 
 // home
 
@@ -214,17 +220,17 @@ addPostForm.addEventListener('submit', function (event) {
             <img src="${post.image}" width="200">
             <p>${post.text}</p>
             <small>${post.date}</small>
-            ${post.own === true? '<button id="deletePostButton" type="button">🗑️</button>' : ''}
+            ${post.own === true ? '<button id="deletePostButton" type="button">🗑️</button>' : ''}
         `
 
         if (post.own === true) {
             let deletePostButton = postElement.querySelector('#deletePostButton')
-    
+
             deletePostButton.addEventListener('click', function (event) {
                 event.preventDefault()
-    
+
                 logic.deletePost(loggedInEmail, post.id)
-    
+
                 postList.removeChild(postElement)
             })
         }

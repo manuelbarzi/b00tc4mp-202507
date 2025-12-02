@@ -28,3 +28,8 @@ a {
     align-items: center;
     justify-content: space-between;
 }
+
+#loginFeedback {
+    color: gold;
+    font-weight: bolder;
+}
