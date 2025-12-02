@@ -48,6 +48,7 @@ loginForm.addEventListener('submit', function (event) {
         logic.loginUser(email, password)
 
         loginForm.reset()
+        loginFeedback.textContent = ''
 
         loggedInEmail = email
 
